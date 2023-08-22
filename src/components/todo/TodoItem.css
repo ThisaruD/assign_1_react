@@ -1,0 +1,25 @@
+.trash-button {
+    color: red;
+    margin-left: auto; 
+    padding: 5px 10px;
+    margin-left: 10px;
+  }
+  
+ 
+  .status-button {
+    color: green;
+    margin-right: 10px;
+  
+  }
+  
+  .todo-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .todo-text {
+    text-align: center;
+    flex-grow: 1;
+  }

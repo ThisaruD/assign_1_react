@@ -1,0 +1,35 @@
+.add-button {
+    background-color: rgb(64, 132, 234);
+    border-radius: 0; 
+    cursor: pointer; 
+    padding: 10px 20px; 
+    border: none; 
+
+}
+  
+ 
+  .add-button:hover {
+    background-color: #0056b3; 
+  }
+
+  .close-button {
+    background-color: rgb(236, 73, 73);
+    border-radius: 0; 
+    cursor: pointer; 
+    padding: 10px 20px; 
+    border: none; 
+
+  }
+  
+  /* Apply hover effect */
+  .close-button:hover {
+    background-color: #ee1e0f; 
+  }
+
+
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 10px;
+  }

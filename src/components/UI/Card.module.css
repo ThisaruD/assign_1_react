@@ -1,0 +1,38 @@
+.card {
+    padding: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    background-color: white;
+  }
+
+ /* Apply these styles to your Card component or container element */
+.card {
+  display: flex;
+  align-items: fixed; /* Center items vertically */
+  justify-content: space-between; /* Create space between items */
+  padding: 10px; /* Adjust padding as needed */
+  border: 1px solid #ccc;
+  margin-bottom: 10px; /* Add margin between cards */
+}
+
+/* Apply these styles to the button elements */
+.card button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+/* Style the trash button to be on the right side */
+/* .card button.trash-button {
+  color: red;
+  margin-left: auto; /* Push button to the right */
+
+
+/* Style the status button to be on the left side */
+/* .card button.status-button {
+  color: green;
+  margin-right: auto; /* Push button to the left */
+ 

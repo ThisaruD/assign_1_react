@@ -5,7 +5,7 @@ import "./App.css";
 import Header from "./components/header/Header";
 import TodoList from "./components/todo/TodoList";
 import AddTodo from "./components/todo/AddTodo";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import TodoProvider from "./components/store/TodoProvider";
 import TodoContext from "./components/store/todo-context";
 
@@ -18,7 +18,6 @@ import TodoContext from "./components/store/todo-context";
 function App() {
   const [showAddTodo, setShowAddTodo] = useState(false);
   const todoContext = useContext(TodoContext);
-  const [isLoad, setIsLoad] = useState([]);
 
   const addTodoHandler = () => {
     setShowAddTodo(true);

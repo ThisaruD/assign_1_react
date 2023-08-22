@@ -20,8 +20,7 @@ const AddTodo = (props) => {
       activity: enteredTodo,
       status: false,
     };
-    const newObj = obj[0];
-    console.log(obj[0]);
+  
     axios
       .post("/api/v1/task", [obj], Config)
       .then((response) => {

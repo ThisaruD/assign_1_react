@@ -1,8 +1,8 @@
 import "./App.css";
 
-import Header from "./components/header/Header";
-import TodoList from "./components/todo/TodoList";
-import AddTodo from "./components/todo/AddTodo";
+import Header from "./components/modules/header/Header";
+import TodoList from "./components/modules/pages/TodoList";
+import AddTodo from "./components/modules/pages/AddTodo";
 import { useContext, useState } from "react";
 import TodoProvider from "./components/store/TodoProvider";
 import TodoContext from "./components/store/todo-context";

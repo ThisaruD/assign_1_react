@@ -1,6 +1,12 @@
 import { useReducer } from "react";
 import TodoContext from "./todo-context";
 import { ADD_TODO, REMOVE_TODO, UPDATE_TODO } from "../../config/action-keys";
+import { httpRequset } from "../../helpers/http-wrpper.helper";
+import {
+  createTodoListAPI,
+  removeTodoListAPI,
+  editTodoListAPI,
+} from "../../config/api-end-points";
 
 const defaultTodoState = {
   todos: [],
@@ -8,11 +14,14 @@ const defaultTodoState = {
 
 const todoReducer = (state, action) => {
   if (action.type === ADD_TODO) {
+    httpRequset(createTodoListAPI, "POST", [action.todo]);
+
     return {
       todos: state.todos.concat(action.todo),
     };
   }
   if (action.type === REMOVE_TODO) {
+    httpRequset(removeTodoListAPI + action.id, "DELETE");
     const updatedTodos = state.todos.filter((todo) => todo.id !== action.id);
 
     return {
@@ -21,6 +30,9 @@ const todoReducer = (state, action) => {
   }
 
   if (action.type === UPDATE_TODO) {
+    httpRequset(editTodoListAPI + action.id, "PUT", {
+      status: action.updatedTodo.status,
+    });
     const updatedTodos = state.todos.map((todo) =>
       todo.id === action.id ? { ...todo, ...action.updatedTodo } : todo
     );

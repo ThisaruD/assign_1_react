@@ -1,28 +1,28 @@
 import React from "react";
 
-import Card from "../../UI/Card";
+import Card from "../../../common-ui-elements/Card";
 import { FaTrashAlt, FaRegCheckCircle, FaRegCircle } from "react-icons/fa";
 import "./TodoItem.css";
 
-const TodoItem = (props) => {
+const TodoItem = ({onDelete,onUpdate, id,todo,status}) => {
   // console.log(props.todo)
   const deleteHandler = () => {
-    props.onDelete(props.id);
+    onDelete(id);
   };
 
   const statusUpdateHandler = () => {
     console.log("done");
-    props.onUpdate(props.id);
+    onUpdate(id);
   };
 
   return (
     <ul>
       <Card>
         <div className="todo-item">
-          <div className="todo-text">{props.todo}</div>
+          <div className="todo-text">{todo}</div>
         </div>
         <button onClick={statusUpdateHandler} className="status-button">
-          {props.status ? <FaRegCheckCircle /> : <FaRegCircle />}
+          {status ? <FaRegCheckCircle /> : <FaRegCircle />}
         </button>
         <button onClick={deleteHandler} className="trash-button">
           <FaTrashAlt />

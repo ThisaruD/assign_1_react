@@ -1,22 +1,19 @@
 import React, { useContext, useState } from "react";
 
-import TodoContext from "../store/todo-context";
-import Modal from "../UI/Modal";
-import { httpRequset } from "../../helpers/http-wrpper.helper";
+import TodoContext from "../../store/todo-context";
+import Modal from "../../common-ui-elements/Modal";
 import "./AddTodo.css";
-import { createTodoListAPI } from "../../config/api-end-points";
 
-const AddTodo = (props) => {
+const AddTodo = ({ onClose }) => {
   const [enteredTodo, setEnteredTodo] = useState("");
   const [isLoad, setIsLoad] = useState(false);
 
   const todoContext = useContext(TodoContext);
 
-  const addToDoHandler = async (event) => {
+  const addToDoHandler = (event) => {
     event.preventDefault();
     setIsLoad(true);
     console.log(enteredTodo);
-    setEnteredTodo("");
 
     const obj = {
       id: Math.floor(Math.random() * 100),
@@ -24,12 +21,10 @@ const AddTodo = (props) => {
       status: false,
     };
 
-    const data = await httpRequset(createTodoListAPI, "POST", [obj]);
-    console.log(data);
-
     todoContext.addTodos(obj);
     setIsLoad(false);
-    props.onClose();
+    setEnteredTodo("");
+    onClose();
   };
 
   if (isLoad) {
@@ -38,7 +33,7 @@ const AddTodo = (props) => {
 
   return (
     <div>
-      <Modal onClose={props.onClose}>
+      <Modal onClose={onClose}>
         <form onSubmit={addToDoHandler}>
           <div>
             <label>Add New Todo</label>
@@ -54,7 +49,7 @@ const AddTodo = (props) => {
             <button className="add-button" disabled={!enteredTodo}>
               Add
             </button>
-            <button className="close-button" onClick={props.onClose}>
+            <button className="close-button" onClick={onClose}>
               Close
             </button>
           </div>

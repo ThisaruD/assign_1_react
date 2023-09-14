@@ -6,6 +6,8 @@ import AddTodo from "./components/modules/pages/AddTodo";
 import { useContext, useState } from "react";
 import TodoProvider from "./components/store/TodoProvider";
 import TodoContext from "./components/store/todo-context";
+import { ErrorBoundary } from './components/modules/pages/ErrorBoundary';
+
 
 function App() {
   const [showAddTodo, setShowAddTodo] = useState(false);
@@ -21,6 +23,7 @@ function App() {
 
   return (
     <div className="App">
+      <ErrorBoundary>
       <TodoProvider>
         <Header />
         <div className="my-todo-text">
@@ -35,7 +38,8 @@ function App() {
         </div>
         {showAddTodo && <AddTodo onClose={hideFormHandler} />}
         <TodoList todos={todoContext.todos} />
-      </TodoProvider>
+        </TodoProvider>
+        </ErrorBoundary>
     </div>
   );
 }

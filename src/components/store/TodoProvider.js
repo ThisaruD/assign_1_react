@@ -1,20 +1,18 @@
 import { useReducer } from "react";
 import TodoContext from "./todo-context";
+import { ADD_TODO, REMOVE_TODO, UPDATE_TODO } from "../../config/action-keys";
 
 const defaultTodoState = {
   todos: [],
 };
 
 const todoReducer = (state, action) => {
-  if (action.type === "ADD") {
-    console.log("ADD");
-
+  if (action.type === ADD_TODO) {
     return {
       todos: state.todos.concat(action.todo),
     };
   }
-  if (action.type === "REMOVE") {
-    console.log("REMOVE");
+  if (action.type === REMOVE_TODO) {
     const updatedTodos = state.todos.filter((todo) => todo.id !== action.id);
 
     return {
@@ -22,8 +20,7 @@ const todoReducer = (state, action) => {
     };
   }
 
-  if (action.type === "UPDATE") {
-    console.log("UPDATE");
+  if (action.type === UPDATE_TODO) {
     const updatedTodos = state.todos.map((todo) =>
       todo.id === action.id ? { ...todo, ...action.updatedTodo } : todo
     );
@@ -32,6 +29,7 @@ const todoReducer = (state, action) => {
       todos: updatedTodos,
     };
   }
+  //should return state
 };
 
 const TodoProvider = (props) => {
@@ -40,21 +38,17 @@ const TodoProvider = (props) => {
     defaultTodoState
   );
 
-  // const replaceTodoHandler = (todo) => {
-  //   dispatchTodoAction({ type: "REPLACE", todo: todo });
-  // };
-
   const addTodoHandler = (todo) => {
-    dispatchTodoAction({ type: "ADD", todo: todo });
+    dispatchTodoAction({ type: ADD_TODO, todo: todo });
   };
 
   const removeTodoHandler = (id) => {
-    dispatchTodoAction({ type: "REMOVE", id: id });
+    dispatchTodoAction({ type: REMOVE_TODO, id: id });
   };
 
   const updateTodoHandler = (updatedTodo) => {
     dispatchTodoAction({
-      type: "UPDATE",
+      type: UPDATE_TODO,
       id: updatedTodo.id,
       updatedTodo: updatedTodo,
     });

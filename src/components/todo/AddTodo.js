@@ -1,38 +1,40 @@
 import React, { useContext, useState } from "react";
-import axios from "axios";
 
 import TodoContext from "../store/todo-context";
 import Modal from "../UI/Modal";
-import Config from "../config/Config";
+import { httpRequset } from "../../helpers/http-wrpper.helper";
 import "./AddTodo.css";
+import { createTodoListAPI } from "../../config/api-end-points";
 
 const AddTodo = (props) => {
   const [enteredTodo, setEnteredTodo] = useState("");
+  const [isLoad, setIsLoad] = useState(false);
 
   const todoContext = useContext(TodoContext);
 
-  const addToDoHandler = (event) => {
+  const addToDoHandler = async (event) => {
     event.preventDefault();
+    setIsLoad(true);
     console.log(enteredTodo);
     setEnteredTodo("");
+
     const obj = {
       id: Math.floor(Math.random() * 100),
       activity: enteredTodo,
       status: false,
     };
-  
-    axios
-      .post("/api/v1/task", [obj], Config)
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+
+    const data = await httpRequset(createTodoListAPI, "POST", [obj]);
+    console.log(data);
 
     todoContext.addTodos(obj);
+    setIsLoad(false);
     props.onClose();
   };
+
+  if (isLoad) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div>

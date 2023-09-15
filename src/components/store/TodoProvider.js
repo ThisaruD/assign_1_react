@@ -1,12 +1,12 @@
 import { useReducer } from "react";
 import TodoContext from "./todo-context";
-import { ADD_TODO, REMOVE_TODO, UPDATE_TODO } from "../../config/action-keys";
+import { ADD_TODO, REMOVE_TODO, UPDATE_TODO } from "../config/action-keys";
 import { httpRequset } from "../../helpers/http-wrpper.helper";
 import {
   createTodoListAPI,
   removeTodoListAPI,
   editTodoListAPI,
-} from "../../config/api-end-points";
+} from "../config/api-end-points";
 
 const defaultTodoState = {
   todos: [],
@@ -14,14 +14,11 @@ const defaultTodoState = {
 
 const todoReducer = (state, action) => {
   if (action.type === ADD_TODO) {
-    httpRequset(createTodoListAPI, "POST", [action.todo]);
-
     return {
       todos: state.todos.concat(action.todo),
     };
   }
   if (action.type === REMOVE_TODO) {
-    httpRequset(removeTodoListAPI + action.id, "DELETE");
     const updatedTodos = state.todos.filter((todo) => todo.id !== action.id);
 
     return {
@@ -30,9 +27,6 @@ const todoReducer = (state, action) => {
   }
 
   if (action.type === UPDATE_TODO) {
-    httpRequset(editTodoListAPI + action.id, "PUT", {
-      status: action.updatedTodo.status,
-    });
     const updatedTodos = state.todos.map((todo) =>
       todo.id === action.id ? { ...todo, ...action.updatedTodo } : todo
     );
@@ -50,15 +44,22 @@ const TodoProvider = (props) => {
     defaultTodoState
   );
 
-  const addTodoHandler = (todo) => {
+  //move to action file
+  //ACTIONS
+  const addTodoHandler = async (todo) => {
+    await httpRequset(createTodoListAPI, "POST", [todo]);
     dispatchTodoAction({ type: ADD_TODO, todo: todo });
   };
 
-  const removeTodoHandler = (id) => {
+  const removeTodoHandler = async (id) => {
+    await httpRequset(removeTodoListAPI + id, "DELETE");
     dispatchTodoAction({ type: REMOVE_TODO, id: id });
   };
 
   const updateTodoHandler = (updatedTodo) => {
+    httpRequset(editTodoListAPI + updatedTodo.id, "PUT", {
+      status: updatedTodo.status,
+    });
     dispatchTodoAction({
       type: UPDATE_TODO,
       id: updatedTodo.id,

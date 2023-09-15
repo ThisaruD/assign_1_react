@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 
 import TodoItem from "./includes/TodoItem";
-import TodoContext from "../../store/todo-context";
-import { httpRequset } from "../../../helpers/http-wrpper.helper";
-import { getTodoListAPI } from "../../../config/api-end-points";
+import TodoContext from "../store/todo-context";
+import { httpRequset } from "../../helpers/http-wrpper.helper";
+import { getTodoListAPI } from "../config/api-end-points";
 
 const TodoList = () => {
   const [isLoad, setIsLoad] = useState(true);

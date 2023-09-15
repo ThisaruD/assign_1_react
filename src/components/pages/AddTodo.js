@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 
-import TodoContext from "../../store/todo-context";
-import Modal from "../../common-ui-elements/Modal";
+import TodoContext from "../store/todo-context";
+import Modal from "../common-ui-elements/Modal";
 import "./AddTodo.css";
 
 const AddTodo = ({ onClose }) => {

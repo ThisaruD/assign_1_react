@@ -1,6 +1,6 @@
 import React from "react";
 
-import Card from "../../../common-ui-elements/Card";
+import Card from "../../common-ui-elements/Card"
 import { FaTrashAlt, FaRegCheckCircle, FaRegCircle } from "react-icons/fa";
 import "./TodoItem.css";
 

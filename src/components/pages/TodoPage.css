@@ -1,0 +1,26 @@
+.add-todo-button {
+    position: fixed; 
+    top: 505; /* Vertically center the button */
+    right: 260px; /* Distance from the right edge */
+    transform: translateY(-50%); /* Adjust for vertical centering */
+    padding: 10px 20px; 
+    background-color: #007bff; 
+    color: #ffffff; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+  }
+  
+  /* Apply hover effect */
+  .add-todo-button:hover {
+    background-color: #0056b3; 
+  }
+
+.my-todo-text{
+  text-align: center;
+  width: 1000px; /* Set your desired width */
+
+  margin: 0 auto; /* Center the container horizontally */
+  
+  padding: 20px; /* Adding some padding to the container */
+}

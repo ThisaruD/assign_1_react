@@ -1,46 +1,25 @@
-import "./App.css";
+import { useContext } from "react";
 
-import Header from "./components/modules/header/Header";
-import TodoList from "./components/modules/pages/TodoList";
-import AddTodo from "./components/modules/pages/AddTodo";
-import { useContext, useState } from "react";
+import "./App.css";
+import Header from "./components/common-ui-elements/header/Header";
+import TodoList from './components/pages/TodoList'
+import TodoPage from './components/pages/TodoPage';
 import TodoProvider from "./components/store/TodoProvider";
 import TodoContext from "./components/store/todo-context";
-import { ErrorBoundary } from './components/modules/pages/ErrorBoundary';
+import { ErrorBoundary } from './components/pages/ErrorBoundary'
 
 
 function App() {
-  const [showAddTodo, setShowAddTodo] = useState(false);
   const todoContext = useContext(TodoContext);
 
-  const addTodoHandler = () => {
-    setShowAddTodo(true);
-  };
-
-  const hideFormHandler = () => {
-    setShowAddTodo(false);
-  };
-
   return (
-    <div className="App">
-      <ErrorBoundary>
+    <ErrorBoundary>
       <TodoProvider>
         <Header />
-        <div className="my-todo-text">
-          My ToDos List
-          <br />
-          --------------------------------------
-        </div>
-        <div>
-          <button onClick={addTodoHandler} className="left-button">
-            Add Todo+
-          </button>
-        </div>
-        {showAddTodo && <AddTodo onClose={hideFormHandler} />}
+        <TodoPage />
         <TodoList todos={todoContext.todos} />
-        </TodoProvider>
-        </ErrorBoundary>
-    </div>
+      </TodoProvider>
+    </ErrorBoundary>
   );
 }
 

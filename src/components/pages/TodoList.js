@@ -1,14 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import TodoItem from "./includes/TodoItem";
-import TodoContext from "../store/todo-context";
 import { httpRequset } from "../../helpers/http-wrpper.helper";
 import { getTodoListAPI } from "../config/api-end-points";
+import { useTodoContext } from "../store/TodoProvider";
 
 const TodoList = () => {
   const [isLoad, setIsLoad] = useState(true);
   const [init, setInit] = useState(false);
-  const todoContext = useContext(TodoContext);
+
+  const [state, todoAction] = useTodoContext();
 
   useEffect(() => {
     if (init) {
@@ -30,35 +31,37 @@ const TodoList = () => {
           status: responseData[key].status,
         });
       }
-      todoContext.addTodos(loadedTodos);
+
+      todoAction.addTodoHandler(loadedTodos);
 
       setIsLoad(false);
       setInit(true);
       console.log(init);
     };
     getInitData();
-  }, [init, todoContext]);
+  }, [init]);
 
   const todoDeleteHandler = (id) => {
-    todoContext.removeTodo(id);
+    todoAction.removeTodoHandler(id);
   };
 
   const todoUpdateHandler = (id) => {
     const updatedTodo = { id: id, status: true };
-    todoContext.updateTodo(updatedTodo);
+
+    todoAction.updateTodoHandler(updatedTodo);
   };
 
   if (isLoad) {
     return <p>Loading...</p>;
   }
 
-  if (todoContext.todos.length === 0) {
+  if (state.todos.length === 0) {
     return <div>No data</div>;
   }
 
   return (
     <div>
-      {todoContext.todos.map((todo) => (
+      {state.todos.map((todo) => (
         <TodoItem
           todo={todo.activity}
           id={todo.id}

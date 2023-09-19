@@ -1,10 +1,5 @@
 import React from "react";
 
-const TodoContext = React.createContext({
-  todos: [],
-  addTodos: (todo) => {},
-  removeTodo: (id) => {},
-  updateTodo: (updatedTodo) => {},
-});
+const TodoContext = React.createContext({});
 
 export default TodoContext;

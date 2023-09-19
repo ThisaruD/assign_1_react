@@ -4,13 +4,12 @@ import "./App.css";
 import Header from "./components/common-ui-elements/header/Header";
 import TodoList from './components/pages/TodoList'
 import TodoPage from './components/pages/TodoPage';
-import TodoProvider from "./components/store/TodoProvider";
-import TodoContext from "./components/store/todo-context";
+import TodoProvider, { useTodoContext } from "./components/store/TodoProvider";
 import { ErrorBoundary } from './components/pages/ErrorBoundary'
 
 
 function App() {
-  const todoContext = useContext(TodoContext);
+  const todoContext = useTodoContext();
 
   return (
     <ErrorBoundary>

@@ -1,16 +1,13 @@
-import { useReducer } from "react";
+import { useContext, useReducer } from "react";
 import TodoContext from "./todo-context";
 import { ADD_TODO, REMOVE_TODO, UPDATE_TODO } from "../config/action-keys";
-import { httpRequset } from "../../helpers/http-wrpper.helper";
-import {
-  createTodoListAPI,
-  removeTodoListAPI,
-  editTodoListAPI,
-} from "../config/api-end-points";
+import { todoActions } from "./todoActions";
 
 const defaultTodoState = {
   todos: [],
 };
+
+export const useTodoContext = () => useContext(TodoContext);
 
 const todoReducer = (state, action) => {
   if (action.type === ADD_TODO) {
@@ -44,38 +41,10 @@ const TodoProvider = (props) => {
     defaultTodoState
   );
 
-  //move to action file
-  //ACTIONS
-  const addTodoHandler = async (todo) => {
-    await httpRequset(createTodoListAPI, "POST", [todo]);
-    dispatchTodoAction({ type: ADD_TODO, todo: todo });
-  };
-
-  const removeTodoHandler = async (id) => {
-    await httpRequset(removeTodoListAPI + id, "DELETE");
-    dispatchTodoAction({ type: REMOVE_TODO, id: id });
-  };
-
-  const updateTodoHandler = (updatedTodo) => {
-    httpRequset(editTodoListAPI + updatedTodo.id, "PUT", {
-      status: updatedTodo.status,
-    });
-    dispatchTodoAction({
-      type: UPDATE_TODO,
-      id: updatedTodo.id,
-      updatedTodo: updatedTodo,
-    });
-  };
-
-  const todoContext = {
-    todos: todoState.todos,
-    addTodos: addTodoHandler,
-    removeTodo: removeTodoHandler,
-    updateTodo: updateTodoHandler,
-  };
+  const dispatchActions = todoActions(dispatchTodoAction);
 
   return (
-    <TodoContext.Provider value={todoContext}>
+    <TodoContext.Provider value={[todoState, dispatchActions]}>
       {props.children}
     </TodoContext.Provider>
   );

@@ -1,14 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 
-import TodoContext from "../store/todo-context";
 import Modal from "../common-ui-elements/Modal";
 import "./AddTodo.css";
+import { useTodoContext } from "../store/TodoProvider";
 
 const AddTodo = ({ onClose }) => {
   const [enteredTodo, setEnteredTodo] = useState("");
   const [isLoad, setIsLoad] = useState(false);
 
-  const todoContext = useContext(TodoContext);
+  const [, todoAction] = useTodoContext();
 
   const addToDoHandler = (event) => {
     event.preventDefault();
@@ -21,7 +21,7 @@ const AddTodo = ({ onClose }) => {
       status: false,
     };
 
-    todoContext.addTodos(obj);
+    todoAction.addTodoHandler(obj);
     setIsLoad(false);
     setEnteredTodo("");
     onClose();

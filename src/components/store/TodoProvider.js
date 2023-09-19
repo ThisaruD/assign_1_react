@@ -10,29 +10,33 @@ const defaultTodoState = {
 export const useTodoContext = () => useContext(TodoContext);
 
 const todoReducer = (state, action) => {
-  if (action.type === ADD_TODO) {
-    return {
-      todos: state.todos.concat(action.todo),
-    };
-  }
-  if (action.type === REMOVE_TODO) {
-    const updatedTodos = state.todos.filter((todo) => todo.id !== action.id);
+  console.log(action.todo);
+  switch (action.type) {
+    case ADD_TODO:
+      return {
+        todos: state.todos.concat(action.todo),
+      };
+    case REMOVE_TODO:
+      var updatedTodos = state.todos.filter((todo) => todo.id !== action.id);
 
-    return {
-      todos: updatedTodos,
-    };
-  }
+      return {
+        todos: updatedTodos,
+      };
 
-  if (action.type === UPDATE_TODO) {
-    const updatedTodos = state.todos.map((todo) =>
-      todo.id === action.id ? { ...todo, ...action.updatedTodo } : todo
-    );
+    case UPDATE_TODO:
+      var updatedTodos = state.todos.map((todo) =>
+        todo.id === action.id ? { ...todo, ...action.updatedTodo } : todo
+      );
+      return {
+        todos: updatedTodos,
+      };
 
-    return {
-      todos: updatedTodos,
-    };
+    default:
+      var updatedTodos = state.todos;
+      return {
+        updatedTodos,
+      };
   }
-  //should return state
 };
 
 const TodoProvider = (props) => {
